@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Étude de Marché - Lavage Auto Meyrargues</title>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Étude de Marché</h1>
+    <p>Projet de station de lavage auto à Meyrargues</p>
+  </header>
+
+  <main>
+    <div class="intro-message">
+      <p>Merci de remplir ce formulaire qui ne vous prendra que <strong>2 minutes</strong>. Vos réponses nous aideront à mieux comprendre vos besoins et à créer un service de lavage auto adapté à Meyrargues.</p>
+    </div>
+    
+    <form id="survey-form" action="https://formspree.io/f/myzpkaol" method="POST">
+      <!-- A. Données démographiques -->
+      <div class="form-step active">
+        <h3>A. Données démographiques</h3>
+        <label>Vous vivez à Meyrargues ou aux alentours ?</label>
+        <select name="vivre_meyrargues" required>
+          <option value="">--</option>
+          <option value="oui">Oui</option>
+          <option value="non">Non</option>
+        </select>
+        <label>Si non, où ?</label>
+        <input type="text" name="lieu" placeholder="Votre lieu de résidence" />
+        <label>Combien de véhicules possédez-vous dans votre foyer ?</label>
+        <select name="vehicules" required>
+          <option value="">--</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2_ou_plus">2 ou plus</option>
+        </select>
+      </div>
+      
+      <!-- B. Habitudes actuelles -->
+      <div class="form-step">
+        <h3>B. Habitudes actuelles</h3>
+        <label>À quelle fréquence lavez-vous votre voiture ?</label>
+        <select name="frequence_lavage" required>
+          <option value="">--</option>
+          <option value="jamais">Jamais</option>
+          <option value="1_2_fois">1-2×/an</option>
+          <option value="3_5_fois">3-5×</option>
+          <option value="plus_5_fois">>5×</option>
+        </select>
+        <label>Où vous la faites laver ?</label>
+        <input type="text" name="lieu_lavage" placeholder="Station-service, centre de lavage, à domicile, etc." />
+        <label>Combien dépensez-vous en moyenne par lavage ?</label>
+        <select name="depense_lavage" required>
+          <option value="">--</option>
+          <option value="moins_5">Moins de 5€</option>
+          <option value="5_10">5-10€</option>
+          <option value="10_15">10-15€</option>
+          <option value="plus_15">>15€</option>
+        </select>
+      </div>
+      
+      <!-- C. Préférences & critères de choix -->
+      <div class="form-step">
+        <h3>C. Préférences & critères de choix</h3>
+        <label>Quels critères sont importants pour choisir un lavage auto ? (Classez de 1 à 5)</label>
+        <div class="ranking-instructions">
+          Glissez et déposez les éléments pour les classer par ordre d'importance (1 = le plus important)
+        </div>
+        <div class="ranking-container" id="ranking-container">
+          <div class="ranking-item" draggable="true" data-value="prix">
+            <div class="ranking-number">1</div>
+            <div class="ranking-label">Prix</div>
+            <div class="ranking-handle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="ranking-item" draggable="true" data-value="rapidite">
+            <div class="ranking-number">2</div>
+            <div class="ranking-label">Rapidité</div>
+            <div class="ranking-handle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="ranking-item" draggable="true" data-value="proprete">
+            <div class="ranking-number">3</div>
+            <div class="ranking-label">Propreté</div>
+            <div class="ranking-handle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="ranking-item" draggable="true" data-value="accessibilite">
+            <div class="ranking-number">4</div>
+            <div class="ranking-label">Accessibilité</div>
+            <div class="ranking-handle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="ranking-item" draggable="true" data-value="produits_eco">
+            <div class="ranking-number">5</div>
+            <div class="ranking-label">Produits écologiques</div>
+            <div class="ranking-handle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="classement_criteres" id="ranking-result" />
+        <label>Seriez-vous intéressé(e) par un nouvel emplacement à Meyrargues proposant lavage auto automatique 24h/24 ?</label>
+        <select name="interet_lavage_auto" required>
+          <option value="">--</option>
+          <option value="oui">Oui</option>
+          <option value="non">Non</option>
+          <option value="peut_etre">Peut-être</option>
+        </select>
+        <label>Pourquoi ?</label>
+        <textarea name="pourquoi_interet" placeholder="Expliquez votre choix..."></textarea>
+      </div>
+      
+      <!-- D. Sensibilité écologique -->
+      <div class="form-step">
+        <h3>D. Sensibilité écologique</h3>
+        <label>L'utilisation de produits biodégradables ou à faible impact environnemental est-elle importante pour vous ?</label>
+        <select name="produits_eco" required>
+          <option value="">--</option>
+          <option value="pas_du_tout">Pas du tout</option>
+          <option value="peu">Peu</option>
+          <option value="assez">Assez</option>
+          <option value="beaucoup">Beaucoup</option>
+          <option value="priorite">Priorité</option>
+        </select>
+      </div>
+      
+      <!-- E. Modalités -->
+      <div class="form-step">
+        <h3>E. Modalités</h3>
+        <label>Préféreriez-vous un système :</label>
+        <select name="type_lavage" required>
+          <option value="">--</option>
+          <option value="automatique">Automatique (rouleaux / boîtiers)</option>
+          <option value="libre_service">Libre-service (postes manuel)</option>
+          <option value="les_deux">Les deux</option>
+        </select>
+        <label>Quel mode de paiement vous convient ?</label>
+        <input type="text" name="paiement" placeholder="Espèces, Carte bancaire, Abonnement, Jetons, Application mobile..." />
+      </div>
+      
+      <!-- F. Suggestions -->
+      <div class="form-step">
+        <h3>F. Suggestions</h3>
+        <label>Que manque-t-il actuellement dans l'offre de lavage à Meyrargues ?</label>
+        <textarea name="manque" placeholder="Décrivez ce qui manque selon vous..."></textarea>
+        <label>Autres commentaires ou suggestions ?</label>
+        <textarea name="suggestions" placeholder="Vos suggestions pour améliorer l'offre..."></textarea>
+      </div>
+      
+      <div class="buttons">
+        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Précédent</button>
+        <button type="button" id="nextBtn" onclick="nextPrev(1)">Suivant</button>
+        <button type="submit" id="submitBtn" style="display:none;">Envoyer</button>
+      </div>
+    </form>
+  </main>
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/@formspree/formspree-js@2.0.1/dist/formspree.min.js"></script>
+  <script>
+    const form = document.getElementById("survey-form");
+
+    // initialiser formspree avec deploy key
+    const client = new Formspree.Client({
+      project: "2786314511072624107",
+      token: "ead3e2f0350b41e1ab971cf5c2e717a5"
+    });
+
+    client.submitForm(form).then(function(response) {
+      if (response.body.ok) {
+        alert("Merci pour vos réponses !");
+        form.reset();
+      } else {
+        alert("Une erreur est survenue. Veuillez réessayer.");
+      }
+    });
+
+    // empêcher le submit classique
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      client.submitForm(form);
+    });
+  </script>
+</body>
+</html>

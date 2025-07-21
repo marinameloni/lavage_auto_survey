@@ -1,0 +1,598 @@
+:root {
+  --primary: #3b82f6;
+  --secondary: #1d4ed8;
+  --accent: #60a5fa;
+  --text-dark: #1e293b;
+  --text-light: #475569;
+  --bg-gradient: linear-gradient(135deg, #3b82f6 0%, #1e40af 50%, #1d4ed8 100%);
+  --card-bg: #ffffff;
+  --border: #e2e8f0;
+  --shadow: 0 10px 25px rgba(59, 130, 246, 0.15);
+  --shadow-hover: 0 20px 40px rgba(59, 130, 246, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+  background: var(--bg-gradient);
+  min-height: 100vh;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+header {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+  padding: 3rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+  z-index: -1;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+  background: none;
+  -webkit-text-fill-color: white;
+}
+
+header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+  font-weight: 400;
+}
+
+main {
+  max-width: 700px;
+  margin: -2rem auto 2rem;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#survey-form {
+  position: relative;
+}
+
+.intro-message {
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.1),
+    rgba(96, 165, 250, 0.05)
+  );
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.intro-message::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 16px 16px 0 0;
+}
+
+.intro-message p {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.intro-message strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.form-step {
+  display: none;
+  animation: slideInRight 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(248, 250, 252, 0.9)
+  );
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-step::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px 2px 0 0;
+}
+
+.form-step.active {
+  display: block;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  position: relative;
+}
+
+label:first-child {
+  margin-top: 0;
+}
+
+label::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+  background: white;
+}
+
+select {
+  cursor: pointer;
+  background-image: linear-gradient(45deg, transparent 50%, var(--primary) 50%),
+    linear-gradient(135deg, var(--primary) 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  appearance: none;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+}
+
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: var(--text-light);
+  opacity: 0.7;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+button {
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    system-ui, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+#prevBtn {
+  background: rgba(59, 130, 246, 0.1);
+  color: var(--primary);
+  border: 2px solid rgba(59, 130, 246, 0.2);
+}
+
+#prevBtn:hover {
+  background: rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+}
+
+#nextBtn,
+#submitBtn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+#nextBtn::before,
+#submitBtn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+#nextBtn:hover::before,
+#submitBtn:hover::before {
+  left: 100%;
+}
+
+#nextBtn:hover,
+#submitBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+button:disabled {
+  background: #e2e8f0;
+  color: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+button:disabled::before {
+  display: none;
+}
+
+/* Progress indicator */
+.form-step::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 0 0 2px 2px;
+  animation: progress 0.6s ease-out;
+}
+
+@keyframes progress {
+  from {
+    width: 0;
+  }
+  to {
+    width: 20%;
+  }
+}
+
+/* Improved input styling */
+input[type="text"]:hover,
+select:hover,
+textarea:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+/* Custom radio/checkbox style for future use */
+.custom-radio {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.custom-radio input[type="radio"] {
+  width: auto;
+  margin-right: 0.5rem;
+  margin-bottom: 0;
+}
+
+/* Floating labels effect */
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-group input {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.input-group label {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  transition: all 0.3s ease;
+  pointer-events: none;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+  top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--primary);
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    padding: 2rem 1rem;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  main {
+    margin: -1rem 1rem 1rem;
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  .form-step {
+    padding: 1.5rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+  }
+
+  label::before {
+    display: none;
+  }
+
+  input,
+  select,
+  textarea {
+    padding: 0.875rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+}
+
+/* Glowing effect for focused elements */
+.form-step:focus-within {
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.12);
+}
+
+/* Cool gradient text for headers */
+h1,
+h2 {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Add some micro-interactions */
+.form-step label:hover::before {
+  opacity: 1;
+  width: 6px;
+  height: 20px;
+}
+
+/* Smooth transitions for everything */
+* {
+  transition: all 0.2s ease-out;
+}
+
+/* Custom scrollbar for textarea */
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  border-radius: 4px;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
+}
+
+/* Ranking system styles */
+.ranking-container {
+  margin: 1rem 0;
+}
+
+.ranking-item {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: grab;
+}
+
+.ranking-item:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ranking-item.dragging {
+  opacity: 0.5;
+  transform: scale(1.05);
+  cursor: grabbing;
+}
+
+.ranking-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border-radius: 50%;
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.ranking-label {
+  flex: 1;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.ranking-handle {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: grab;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+}
+
+.ranking-handle:active {
+  cursor: grabbing;
+}
+
+.ranking-handle::before,
+.ranking-handle::after {
+  content: "";
+  width: 4px;
+  height: 4px;
+  background: var(--text-light);
+  border-radius: 50%;
+}
+
+.ranking-handle span {
+  width: 4px;
+  height: 4px;
+  background: var(--text-light);
+  border-radius: 50%;
+  display: block;
+}
+
+.ranking-instructions {
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--primary);
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  .ranking-item {
+    padding: 0.75rem;
+  }
+
+  .ranking-number {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+    margin-right: 0.75rem;
+  }
+
+  .ranking-label {
+    font-size: 0.9rem;
+  }
+}
