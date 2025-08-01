@@ -68,55 +68,71 @@
         <h3>C. Préférences & critères de choix</h3>
         <label>Quels critères sont importants pour choisir un lavage auto ? (Classez de 1 à 5)</label>
         <div class="ranking-instructions">
-          Glissez et déposez les éléments pour les classer par ordre d'importance (1 = le plus important)
+          Attribuez une note de 1 (le plus important) à 5 (le moins important) pour chaque critère
         </div>
-        <div class="ranking-container" id="ranking-container">
-          <div class="ranking-item" draggable="true" data-value="prix">
-            <div class="ranking-number">1</div>
-            <div class="ranking-label">Prix</div>
-            <div class="ranking-handle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+        
+        <div class="criteria-container">
+          <div class="criteria-item">
+            <div class="criteria-label">Prix</div>
+            <select name="critere_prix" required class="criteria-select">
+              <option value="">--</option>
+              <option value="1">1 (Le plus important)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Le moins important)</option>
+            </select>
           </div>
-          <div class="ranking-item" draggable="true" data-value="rapidite">
-            <div class="ranking-number">2</div>
-            <div class="ranking-label">Rapidité</div>
-            <div class="ranking-handle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+          
+          <div class="criteria-item">
+            <div class="criteria-label">Rapidité</div>
+            <select name="critere_rapidite" required class="criteria-select">
+              <option value="">--</option>
+              <option value="1">1 (Le plus important)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Le moins important)</option>
+            </select>
           </div>
-          <div class="ranking-item" draggable="true" data-value="proprete">
-            <div class="ranking-number">3</div>
-            <div class="ranking-label">Propreté</div>
-            <div class="ranking-handle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+          
+          <div class="criteria-item">
+            <div class="criteria-label">Propreté</div>
+            <select name="critere_proprete" required class="criteria-select">
+              <option value="">--</option>
+              <option value="1">1 (Le plus important)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Le moins important)</option>
+            </select>
           </div>
-          <div class="ranking-item" draggable="true" data-value="accessibilite">
-            <div class="ranking-number">4</div>
-            <div class="ranking-label">Accessibilité</div>
-            <div class="ranking-handle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+          
+          <div class="criteria-item">
+            <div class="criteria-label">Accessibilité</div>
+            <select name="critere_accessibilite" required class="criteria-select">
+              <option value="">--</option>
+              <option value="1">1 (Le plus important)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Le moins important)</option>
+            </select>
           </div>
-          <div class="ranking-item" draggable="true" data-value="produits_eco">
-            <div class="ranking-number">5</div>
-            <div class="ranking-label">Produits écologiques</div>
-            <div class="ranking-handle">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+          
+          <div class="criteria-item">
+            <div class="criteria-label">Produits écologiques</div>
+            <select name="critere_produits_eco" required class="criteria-select">
+              <option value="">--</option>
+              <option value="1">1 (Le plus important)</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5 (Le moins important)</option>
+            </select>
           </div>
         </div>
+        
         <input type="hidden" name="classement_criteres" id="ranking-result" />
         <label>Seriez-vous intéressé(e) par un nouvel emplacement à Meyrargues proposant lavage auto automatique 24h/24 ?</label>
         <select name="interet_lavage_auto" required>
@@ -176,7 +192,7 @@
   <script src="script.js"></script>
   <script>
     // Configuration Sheet.best API
-    const SHEET_BEST_URL = 'https://api.sheetbest.com/sheets/1d8155f7-40c5-43d9-8228-567e53c0cb67';
+    const SHEET_BEST_URL = 'https://api.sheetbest.com/sheets/e4bc8c8c-1c6f-405d-a67e-806df1a1efaf';
     
     // Gestion de la soumission du formulaire
     document.addEventListener('DOMContentLoaded', function() {
@@ -204,11 +220,8 @@
             // Retourner à la première étape
             currentStep = 0;
             showStep(currentStep);
-            // Réinitialiser le classement
-            if (rankingContainer) {
-              initializeRanking();
-              updateRankingResult();
-            }
+            // Réinitialiser les critères
+            initializeCriteriaSelection();
           } else {
             throw new Error(`Erreur HTTP: ${response.status}`);
           }

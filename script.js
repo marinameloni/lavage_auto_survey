@@ -27,91 +27,40 @@ function validateForm() {
 
 showStep(currentStep);
 
-// Ranking system functionality
-let draggedElement = null;
-let rankingContainer = null;
-
+// Criteria selection functionality
 document.addEventListener('DOMContentLoaded', function() {
-  rankingContainer = document.getElementById('ranking-container');
-  
-  if (rankingContainer) {
-    // Initialize drag and drop
-    initializeRanking();
-    updateRankingResult();
-  }
+  // Initialize criteria selection
+  initializeCriteriaSelection();
 });
 
-function initializeRanking() {
-  const rankingItems = rankingContainer.querySelectorAll('.ranking-item');
+function initializeCriteriaSelection() {
+  const criteriaSelects = document.querySelectorAll('.criteria-select');
   
-  rankingItems.forEach(item => {
-    item.addEventListener('dragstart', handleDragStart);
-    item.addEventListener('dragover', handleDragOver);
-    item.addEventListener('drop', handleDrop);
-    item.addEventListener('dragend', handleDragEnd);
+  criteriaSelects.forEach(select => {
+    select.addEventListener('change', updateCriteriaResult);
   });
-}
-
-function handleDragStart(e) {
-  draggedElement = this;
-  this.classList.add('dragging');
-}
-
-function handleDragOver(e) {
-  e.preventDefault();
-  const afterElement = getDragAfterElement(rankingContainer, e.clientY);
-  const dragging = document.querySelector('.dragging');
   
-  if (afterElement == null) {
-    rankingContainer.appendChild(dragging);
-  } else {
-    rankingContainer.insertBefore(dragging, afterElement);
+  // Initial update
+  updateCriteriaResult();
+}
+
+function updateCriteriaResult() {
+  const criteriaData = {
+    'Prix': document.querySelector('select[name="critere_prix"]')?.value || '',
+    'Rapidité': document.querySelector('select[name="critere_rapidite"]')?.value || '',
+    'Propreté': document.querySelector('select[name="critere_proprete"]')?.value || '',
+    'Accessibilité': document.querySelector('select[name="critere_accessibilite"]')?.value || '',
+    'Produits écologiques': document.querySelector('select[name="critere_produits_eco"]')?.value || ''
+  };
+  
+  // Create a readable summary
+  const result = Object.entries(criteriaData)
+    .filter(([key, value]) => value !== '')
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(', ');
+  
+  const rankingResult = document.getElementById('ranking-result');
+  if (rankingResult) {
+    rankingResult.value = result;
   }
-}
-
-function handleDrop(e) {
-  e.preventDefault();
-  updateRankingNumbers();
-  updateRankingResult();
-}
-
-function handleDragEnd(e) {
-  this.classList.remove('dragging');
-  draggedElement = null;
-}
-
-function getDragAfterElement(container, y) {
-  const draggableElements = [...container.querySelectorAll('.ranking-item:not(.dragging)')];
-  
-  return draggableElements.reduce((closest, child) => {
-    const box = child.getBoundingClientRect();
-    const offset = y - box.top - box.height / 2;
-    
-    if (offset < 0 && offset > closest.offset) {
-      return { offset: offset, element: child };
-    } else {
-      return closest;
-    }
-  }, { offset: Number.NEGATIVE_INFINITY }).element;
-}
-
-function updateRankingNumbers() {
-  const rankingItems = rankingContainer.querySelectorAll('.ranking-item');
-  rankingItems.forEach((item, index) => {
-    const numberElement = item.querySelector('.ranking-number');
-    numberElement.textContent = index + 1;
-  });
-}
-
-function updateRankingResult() {
-  const rankingItems = rankingContainer.querySelectorAll('.ranking-item');
-  const result = [];
-  
-  rankingItems.forEach((item, index) => {
-    const value = item.dataset.value;
-    const label = item.querySelector('.ranking-label').textContent;
-    result.push(`${index + 1}. ${label}`);
-  });
-  
-  document.getElementById('ranking-result').value = result.join(', ');
 }
